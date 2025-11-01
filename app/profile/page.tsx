@@ -3,7 +3,6 @@ import type { ComponentType, SVGProps } from "react";
 import {
   Bell,
   Edit3,
-  Gift,
   Instagram,
   Languages,
   Lock,
@@ -13,7 +12,6 @@ import {
   PhoneCall,
   Scissors,
   ShieldAlert,
-  Sparkles,
   Star,
   Ticket,
   Wallet,
@@ -58,115 +56,150 @@ const socials = [
 
 export default function ProfilePage() {
   return (
-    <PageShell background="mesh" contentClassName="gap-10">
-      <main className="flex flex-col gap-8">
-        <section className="space-y-6">
-          <div className="flex items-center gap-4">
-            <Avatar className="h-20 w-20 border-[3px] border-primary shadow-lg">
+    <PageShell background="soft" contentClassName="gap-0">
+      {/* Hero Profile Header */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-primary/5 to-accent/10 px-5 py-8 lg:px-8">
+        <div className="absolute inset-0 bg-grid-pattern opacity-5" />
+        <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
+        <div className="relative space-y-6">
+          <div className="flex items-start gap-4">
+            <Avatar className="h-20 w-20 border-4 border-background shadow-lg ring-2 ring-primary/20 lg:h-24 lg:w-24">
               <AvatarImage src="/placeholder.jpg" alt={profileData.nama} />
-              <AvatarFallback>
+              <AvatarFallback className="bg-primary/10 text-primary text-2xl font-bold">
                 {profileData.nama
                   .split(" ")
                   .map((word) => word[0])
                   .join("")}
               </AvatarFallback>
             </Avatar>
-            <div className="space-y-1">
-              <h1 className="text-xl font-semibold">{profileData.nama}</h1>
-              <p className="text-sm text-muted-foreground">
-                Member sejak {profileData.bergabung}
-              </p>
+            <div className="flex-1 space-y-2">
+              <div>
+                <h1 className="text-2xl font-bold tracking-tight lg:text-3xl">{profileData.nama}</h1>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Member sejak {profileData.bergabung}
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {profileData.preferensi.map((pref) => (
+                  <span key={pref} className="inline-flex items-center gap-1.5 rounded-lg bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+                    <Scissors className="h-3 w-3" />
+                    {pref}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
 
-          <Card className="border-none bg-card text-card-foreground shadow-xl transition hover:-translate-y-1 hover:shadow-2xl">
-            <CardContent className="space-y-4 p-6">
-              <div className="grid gap-3 text-sm">
-                <InfoRow icon={PhoneCall} label="Nomor Telepon" value={profileData.nomor_hp} />
-                <InfoRow icon={MapPin} label="Lokasi" value={profileData.lokasi} />
-                <InfoRow icon={Scissors} label="Preferensi Gaya Rambut" value={profileData.preferensi.join(", ")} />
-                <InfoRow icon={CalendarIcon} label="Bergabung Sejak" value={profileData.bergabung} />
-              </div>
-              <Button className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow hover:bg-primary/90">
-                <Edit3 className="h-4 w-4" />
-                Edit Data Diri
-              </Button>
-            </CardContent>
-          </Card>
-        </section>
-
-        <section className="space-y-5">
-          <h2 className="text-lg font-semibold">Aktivitas Saya</h2>
+          {/* Quick Stats */}
           <div className="grid grid-cols-3 gap-3">
-            <StatCard icon={Sparkles} label="Total Booking" value={`${profileData.total_booking}`} />
-            <StatCard icon={Star} label="Rating Diberikan" value={`${profileData.rating_diberikan}`} />
-            <StatCard icon={Gift} label="Loyalty Points" value={`${profileData.loyalty_points} poin`} />
+            <div className="rounded-lg bg-background/80 p-3 text-center backdrop-blur-sm">
+              <p className="text-2xl font-bold text-primary">{profileData.total_booking}</p>
+              <p className="text-xs font-medium text-muted-foreground">Booking</p>
+            </div>
+            <div className="rounded-lg bg-background/80 p-3 text-center backdrop-blur-sm">
+              <p className="text-2xl font-bold text-primary">{profileData.rating_diberikan}</p>
+              <p className="text-xs font-medium text-muted-foreground">Rating</p>
+            </div>
+            <div className="rounded-lg bg-background/80 p-3 text-center backdrop-blur-sm">
+              <p className="text-2xl font-bold text-primary">{profileData.loyalty_points}</p>
+              <p className="text-xs font-medium text-muted-foreground">Points</p>
+            </div>
           </div>
-          <div className="grid gap-3">
-            <Button variant="outline" className="w-full justify-center gap-2 rounded-2xl border-border bg-muted text-sm font-semibold text-muted-foreground transition hover:bg-accent">
-              <Ticket className="h-4 w-4" />
-              Lihat Riwayat Booking
-            </Button>
-            <Button variant="outline" className="w-full justify-center gap-2 rounded-2xl border-border bg-muted text-sm font-semibold text-muted-foreground transition hover:bg-accent">
-              <Star className="h-4 w-4" />
-              Barber Favorit Saya
+        </div>
+      </section>
+
+      <main className="flex flex-col">
+        {/* Profile Info */}
+        <section className="space-y-4 px-5 py-6 lg:px-8">
+          <h2 className="text-xl font-bold tracking-tight">Informasi Pribadi</h2>
+          <div className="rounded-xl border border-border/50 bg-card p-5 shadow-sm">
+
+            <div className="grid gap-3 text-sm">
+              <InfoRow icon={PhoneCall} label="Nomor Telepon" value={profileData.nomor_hp} />
+              <InfoRow icon={MapPin} label="Lokasi" value={profileData.lokasi} />
+            </div>
+            <Button className="mt-4 w-full justify-center gap-2 rounded-lg bg-primary font-semibold shadow-sm transition-all hover:bg-primary/90 hover:shadow">
+              <Edit3 className="h-4 w-4" />
+              Edit Data Diri
             </Button>
           </div>
         </section>
 
-        <section className="space-y-4">
-          <h2 className="text-lg font-semibold">Wallet & Promo</h2>
-          <Card className="border-none bg-linear-to-br from-primary to-accent shadow-xl transition hover:-translate-y-1 hover:shadow-2xl">
-            <CardContent className="space-y-4 p-6 text-primary-foreground">
-              <div className="flex items-center justify-between">
-                <span className="inline-flex items-center gap-2 text-sm text-primary-foreground/80">
-                  <Wallet className="h-4 w-4" />
-                  Saldo Cashback
-                </span>
-                <p className="text-lg font-semibold text-primary-foreground">
-                  Rp {profileData.saldo_wallet.toLocaleString("id-ID")}
-                </p>
+        {/* Quick Actions */}
+        <section className="space-y-4 bg-muted/30 px-5 py-6 lg:px-8">
+          <h2 className="text-xl font-bold tracking-tight">Aksi Cepat</h2>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Button variant="outline" className="h-auto flex-col gap-2 rounded-xl border-border/50 p-4 transition-all hover:bg-accent hover:shadow-sm">
+              <Ticket className="h-6 w-6 text-primary" />
+              <span className="text-sm font-semibold">Riwayat Booking</span>
+              <span className="text-xs text-muted-foreground">{profileData.total_booking} pesanan</span>
+            </Button>
+            <Button variant="outline" className="h-auto flex-col gap-2 rounded-xl border-border/50 p-4 transition-all hover:bg-accent hover:shadow-sm">
+              <Star className="h-6 w-6 text-primary" />
+              <span className="text-sm font-semibold">Barber Favorit</span>
+              <span className="text-xs text-muted-foreground">Kelola favorit</span>
+            </Button>
+          </div>
+        </section>
+
+        {/* Wallet & Promo */}
+        <section className="space-y-4 px-5 py-6 lg:px-8">
+          <h2 className="text-xl font-bold tracking-tight">Wallet & Promo</h2>
+          <div className="relative overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-br from-primary via-primary to-accent p-6 shadow-lg">
+            <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-white/10 blur-2xl" />
+            <div className="relative space-y-5 text-primary-foreground">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="inline-flex items-center gap-2 text-sm font-semibold">
+                    <Wallet className="h-5 w-5" />
+                    Saldo Cashback
+                  </span>
+                  <p className="text-2xl font-bold">
+                    Rp {profileData.saldo_wallet.toLocaleString("id-ID")}
+                  </p>
+                </div>
+                <div className="h-px bg-white/20" />
+                <div className="flex items-center justify-between">
+                  <span className="inline-flex items-center gap-2 text-sm font-semibold">
+                    <Ticket className="h-5 w-5" />
+                    Promo Aktif
+                  </span>
+                  <p className="text-2xl font-bold">
+                    {profileData.promo} voucher
+                  </p>
+                </div>
               </div>
-              <div className="flex items-center justify-between">
-                <span className="inline-flex items-center gap-2 text-sm text-primary-foreground/80">
-                  <Ticket className="h-4 w-4" />
-                  Promo Aktif
-                </span>
-                <p className="text-lg font-semibold text-primary-foreground">
-                  {profileData.promo} voucher tersedia
-                </p>
-              </div>
-              <Button className="w-full justify-center rounded-2xl bg-card text-card-foreground shadow hover:bg-card/90">
+              <Button className="w-full justify-center rounded-lg bg-white font-bold text-primary shadow-lg transition-all hover:bg-white/90 hover:shadow-xl">
                 Gunakan Promo
               </Button>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </section>
 
-        <section className="space-y-4">
-          <h2 className="text-lg font-semibold">Pengaturan</h2>
-          <Card className="border-none bg-card text-card-foreground shadow-xl transition hover:-translate-y-1 hover:shadow-2xl">
-            <CardContent className="space-y-1 p-4">
-              {settingsMenu.map((item) => (
-                <SettingsRow key={item.label} {...item} />
-              ))}
-            </CardContent>
-          </Card>
+        {/* Settings */}
+        <section className="space-y-4 bg-muted/30 px-5 py-6 lg:px-8">
+          <h2 className="text-xl font-bold tracking-tight">Pengaturan</h2>
+          <div className="rounded-xl border border-border/50 bg-card p-2 shadow-sm">
+            {settingsMenu.map((item) => (
+              <SettingsRow key={item.label} {...item} />
+            ))}
+          </div>
         </section>
 
-        <footer className="space-y-3 pb-4 text-center text-xs text-muted-foreground">
-          <p>Versi 1.0.3 — TrimTime © 2025</p>
-          <div className="flex items-center justify-center gap-4">
+        {/* Footer */}
+        <footer className="space-y-4 px-5 py-8 text-center lg:px-8">
+          <div className="flex items-center justify-center gap-3">
             {socials.map(({ icon: Icon, label }) => (
               <button
                 key={label}
                 aria-label={label}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-muted text-muted-foreground backdrop-blur transition hover:bg-accent"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border/50 bg-background text-muted-foreground shadow-sm transition-all hover:bg-primary hover:text-primary-foreground hover:shadow"
               >
                 <Icon className="h-4 w-4" />
               </button>
             ))}
           </div>
+          <p className="text-xs font-medium text-muted-foreground">Versi 1.0.3 — TrimTime © 2025</p>
         </footer>
       </main>
     </PageShell>
@@ -183,13 +216,13 @@ function InfoRow({
   value: string;
 }) {
   return (
-    <div className="flex items-start gap-3 rounded-2xl bg-muted p-3">
-      <span className="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-secondary text-secondary-foreground">
+    <div className="flex items-start gap-3 rounded-lg border border-border/30 bg-muted/40 p-3">
+      <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
         <Icon className="h-4 w-4" />
       </span>
-      <div>
-        <p className="text-xs font-semibold text-muted-foreground">{label}</p>
-        <p className="text-sm font-medium text-card-foreground">{value}</p>
+      <div className="min-w-0">
+        <p className="text-xs font-medium text-muted-foreground">{label}</p>
+        <p className="text-sm font-semibold text-card-foreground">{value}</p>
       </div>
     </div>
   );
@@ -205,13 +238,13 @@ function StatCard({
   value: string;
 }) {
   return (
-    <Card className="border-none bg-card text-card-foreground shadow-lg transition hover:-translate-y-1 hover:shadow-2xl">
+    <Card className="border border-border/50 bg-card text-card-foreground shadow-sm">
       <CardContent className="space-y-2 p-4 text-center">
-        <span className="mx-auto inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-muted text-primary">
+        <span className="mx-auto inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
           <Icon className="h-5 w-5" />
         </span>
-        <p className="text-xs font-semibold text-muted-foreground">{label}</p>
-        <p className="text-sm font-semibold text-card-foreground">{value}</p>
+        <p className="text-xs font-medium text-muted-foreground">{label}</p>
+        <p className="text-base font-bold tracking-tight text-card-foreground">{value}</p>
       </CardContent>
     </Card>
   );
@@ -238,20 +271,20 @@ function SettingsRow({
         : "text-card-foreground";
 
   return (
-    <div className="flex items-center justify-between rounded-2xl px-3 py-3 transition hover:bg-muted">
+    <div className="flex items-center justify-between rounded-lg px-3 py-3 transition-colors hover:bg-muted/50">
       <div className="flex items-center gap-3">
-        <span className="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-muted text-primary">
+        <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
           <Icon className="h-4 w-4" />
         </span>
-        <div>
-          <p className={cn("text-sm font-semibold", emphasis)}>{label}</p>
+        <div className="min-w-0">
+          <p className={cn("text-sm font-semibold tracking-tight", emphasis)}>{label}</p>
           {hint && <p className="text-xs text-muted-foreground">{hint}</p>}
         </div>
       </div>
       {type === "toggle" ? (
-        <Switch defaultChecked />
+        <Switch defaultChecked className="shrink-0" />
       ) : (
-        <button className="text-xs font-semibold text-primary">Kelola</button>
+        <button className="shrink-0 text-xs font-medium text-primary hover:text-primary/80">Kelola</button>
       )}
     </div>
   );

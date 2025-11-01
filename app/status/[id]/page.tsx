@@ -13,13 +13,6 @@ import {
 
 import { PageShell } from "@/components/layout/page-shell";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle
-} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 type StatusKey = "waiting" | "confirmed" | "in_progress" | "completed" | "canceled";
@@ -90,152 +83,127 @@ export default function StatusPage({ params }: { params: { id: string } }) {
     );
 
     return (
-        <PageShell background="hero" contentClassName="gap-8">
-            <header className="flex items-center justify-between rounded-3xl border border-border bg-card/90 px-6 py-5 shadow-sm">
-                <Link
-                    href="/homepage"
-                    className="inline-flex items-center gap-1 rounded-full border border-border bg-background px-3 py-2 text-xs text-muted-foreground transition hover:bg-accent"
-                >
-                    <ArrowLeft className="h-4 w-4" />
-                    Home
-                </Link>
-                <span className="rounded-full border border-border bg-muted px-3 py-2 text-xs text-muted-foreground">
-                    #{params.id}
-                </span>
-            </header>
-
-            <main className="flex flex-col gap-6">
-                <Card className="border-none bg-card text-card-foreground shadow-xl">
-                    <CardHeader className="space-y-1">
-                        <div className="flex items-center justify-between">
-                            <CardTitle className="text-lg font-semibold">
-                                Status booking
-                            </CardTitle>
-                            <Badge variant={meta.variant}>{meta.label}</Badge>
+        <PageShell background="soft" contentClassName="gap-0">
+            {/* Hero Header */}
+            <section className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-primary/5 to-accent/10 px-5 py-6 lg:px-8">
+                <div className="absolute inset-0 bg-grid-pattern opacity-5" />
+                <div className="relative space-y-4">
+                    <Link href="/homepage" className="inline-flex w-fit items-center gap-2 rounded-lg border border-border/50 bg-background px-3 py-2 text-xs font-medium shadow-sm transition-colors hover:bg-accent">
+                        <ArrowLeft className="h-3.5 w-3.5" />
+                        Kembali ke Home
+                    </Link>
+                    <div className="flex items-start justify-between gap-4">
+                        <div className="space-y-2">
+                            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary">
+                                <CheckCircle2 className="h-3.5 w-3.5" />
+                                Status Booking
+                            </div>
+                            <h1 className="text-3xl font-bold tracking-tight lg:text-4xl">Booking #{params.id}</h1>
+                            <p className="text-sm text-muted-foreground lg:text-base">Pantau progres layanan kamu secara realtime</p>
                         </div>
-                        <CardDescription className="text-sm text-muted-foreground">
-                            Kami bantu pantau progres haircut kamu.
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-4 text-sm text-muted-foreground">
-                        <div className="rounded-2xl border border-border p-4">
-                            <div className="flex items-center justify-between text-xs text-muted-foreground">
-                                <span className="inline-flex items-center gap-2">
-                                    <ShieldCheck className="h-3.5 w-3.5 text-primary" />
-                                    Barbershop
-                                </span>
-                                <span className="font-semibold text-card-foreground">
-                                    {bookingStatus.barbershop}
-                                </span>
+                        <Badge className="rounded-lg px-3 py-1.5 text-xs font-bold shadow-sm" variant={meta.variant}>{meta.label}</Badge>
+                    </div>
+                </div>
+            </section>
+
+            <main className="flex flex-col">
+                {/* Booking Details */}
+                <section className="space-y-4 px-5 py-6 lg:px-8">
+                    <h2 className="text-xl font-bold tracking-tight">Detail Booking</h2>
+                    <div className="rounded-xl border border-border/50 bg-card p-5 shadow-sm">
+                        <div className="grid gap-4">
+                            <div className="flex items-center gap-3">
+                                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+                                    <ShieldCheck className="h-5 w-5 text-primary" />
+                                </div>
+                                <div className="flex-1">
+                                    <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Barbershop</p>
+                                    <p className="mt-0.5 text-base font-bold text-foreground">{bookingStatus.barbershop}</p>
+                                </div>
                             </div>
-                            <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
-                                <span className="inline-flex items-center gap-2">
-                                    <CalendarClock className="h-3.5 w-3.5 text-primary" />
-                                    Jadwal
-                                </span>
-                                <span>{bookingStatus.date}</span>
-                            </div>
-                            <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
-                                <span className="inline-flex items-center gap-2">
-                                    <MapPin className="h-3.5 w-3.5 text-primary" />
-                                    Lokasi
-                                </span>
-                                <span>{bookingStatus.location}</span>
-                            </div>
-                            <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
-                                <span className="inline-flex items-center gap-2">
-                                    <CheckCircle2 className="h-3.5 w-3.5 text-primary" />
-                                    Barber
-                                </span>
-                                <span>{bookingStatus.barber}</span>
+                            <div className="h-px bg-border/50" />
+                            <div className="grid gap-3">
+                                <div className="flex items-center justify-between">
+                                    <span className="inline-flex items-center gap-2 text-sm text-muted-foreground">
+                                        <CalendarClock className="h-4 w-4 text-primary" />
+                                        Jadwal
+                                    </span>
+                                    <span className="text-sm font-semibold text-foreground">{bookingStatus.date}</span>
+                                </div>
+                                <div className="flex items-center justify-between">
+                                    <span className="inline-flex items-center gap-2 text-sm text-muted-foreground">
+                                        <MapPin className="h-4 w-4 text-primary" />
+                                        Lokasi
+                                    </span>
+                                    <span className="text-sm font-semibold text-foreground">{bookingStatus.location}</span>
+                                </div>
+                                <div className="flex items-center justify-between">
+                                    <span className="inline-flex items-center gap-2 text-sm text-muted-foreground">
+                                        <CheckCircle2 className="h-4 w-4 text-primary" />
+                                        Barber
+                                    </span>
+                                    <span className="text-sm font-semibold text-foreground">{bookingStatus.barber}</span>
+                                </div>
                             </div>
                         </div>
-                    </CardContent>
-                </Card>
+                    </div>
+                </section>
 
-                <Card className="border-none bg-card text-card-foreground shadow-xl">
-                    <CardHeader className="space-y-1">
-                        <CardTitle className="text-lg font-semibold">
-                            Timeline layanan
-                        </CardTitle>
-                        <CardDescription className="text-sm text-muted-foreground">
-                            Step berikutnya akan otomatis diperbarui.
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
+                {/* Timeline */}
+                <section className="space-y-4 bg-muted/30 px-5 py-6 lg:px-8">
+                    <div>
+                        <h2 className="text-xl font-bold tracking-tight">Timeline Layanan</h2>
+                        <p className="mt-1 text-sm text-muted-foreground">Step berikutnya akan otomatis diperbarui</p>
+                    </div>
+                    <div className="space-y-3">
                         {statusSteps.map((step, index) => {
                             const Icon = step.icon;
                             const isDone = index <= currentIndex;
                             return (
-                                <div
-                                    key={step.key}
-                                    className={`flex items-start gap-3 rounded-2xl border p-4 ${
-                                        isDone
-                                            ? "border-primary/30 bg-primary/10"
-                                            : "border-border"
-                                    }`}
-                                >
-                                    <span
-                                        className={`mt-0.5 inline-flex h-10 w-10 items-center justify-center rounded-2xl ${
-                                            isDone
-                                                ? "bg-primary text-primary-foreground"
-                                                : "bg-muted text-muted-foreground"
-                                        }`}
-                                    >
-                                        <Icon className="h-5 w-5" />
+                                <div key={step.key} className={`flex items-start gap-4 rounded-xl border p-4 transition-all ${isDone ? "border-primary/30 bg-primary/5 shadow-sm" : "border-border/50 bg-card"}`}>
+                                    <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-lg ${isDone ? "bg-primary text-primary-foreground shadow-sm" : "bg-muted text-muted-foreground"}`}>
+                                        <Icon className="h-6 w-6" />
                                     </span>
-                                    <div className="flex-1">
-                                        <p className="text-sm font-semibold text-card-foreground">
-                                            {step.title}
-                                        </p>
-                                        <p className="text-xs text-muted-foreground">
-                                            {step.description}
-                                        </p>
+                                    <div className="flex-1 pt-1">
+                                        <p className="text-sm font-bold text-card-foreground">{step.title}</p>
+                                        <p className="mt-0.5 text-xs text-muted-foreground">{step.description}</p>
                                     </div>
                                 </div>
                             );
                         })}
-                    </CardContent>
-                </Card>
+                    </div>
+                </section>
 
                 {bookingStatus.status !== "completed" ? (
-                    <Card className="border-none bg-card text-card-foreground shadow-xl">
-                        <CardHeader className="space-y-1">
-                            <CardTitle className="text-lg font-semibold">
-                                Notifikasi otomatis
-                            </CardTitle>
-                            <CardDescription className="text-sm text-muted-foreground">
-                                Kami akan kirim pengingat sebelum jadwalmu.
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent className="space-y-3">
+                    <section className="space-y-4 px-5 py-6 lg:px-8">
+                        <div>
+                            <h2 className="text-xl font-bold tracking-tight">Notifikasi Otomatis</h2>
+                            <p className="mt-1 text-sm text-muted-foreground">Kami akan kirim pengingat sebelum jadwalmu</p>
+                        </div>
+                        <div className="space-y-3">
                             {reminders.map((reminder) => (
-                                <div
-                                    key={reminder.label}
-                                    className="flex items-center justify-between rounded-2xl border border-border p-4 text-xs text-muted-foreground"
-                                >
-                                    <span className="inline-flex items-center gap-2">
-                                        <AlarmClock className="h-3.5 w-3.5 text-primary" />
+                                <div key={reminder.label} className="flex items-center justify-between rounded-lg border border-border/50 bg-card p-4">
+                                    <span className="inline-flex items-center gap-2 text-sm font-medium text-foreground">
+                                        <AlarmClock className="h-4 w-4 text-primary" />
                                         {reminder.label}
                                     </span>
-                                    <span>{reminder.time}</span>
+                                    <span className="text-xs text-muted-foreground">{reminder.time}</span>
                                 </div>
                             ))}
-                            <Button
-                                variant='outline'
-                                className='w-full justify-center gap-2 rounded-2xl border-border text-muted-foreground hover:bg-accent'
-                            >
-                                Batalkan booking
+                            <Button variant='outline' className='w-full justify-center gap-2 rounded-lg border-border/50 font-medium hover:bg-accent'>
+                                Batalkan Booking
                             </Button>
-                        </CardContent>
-                    </Card>
+                        </div>
+                    </section>
                 ) : (
-                    <Link href={`/rating/${params.id}`}>
-                        <Button className='w-full justify-center gap-2 rounded-2xl bg-primary text-primary-foreground shadow-xl transition hover:bg-primary/90'>
-                            Beri rating & review
-                            <ArrowRight className='h-4 w-4' />
-                        </Button>
-                    </Link>
+                    <div className="sticky bottom-0 border-t border-border/50 bg-background/95 p-5 backdrop-blur-sm lg:px-8">
+                        <Link href={`/rating/${params.id}`}>
+                            <Button className='w-full justify-center gap-2 rounded-lg bg-primary px-8 py-6 text-base font-semibold shadow-lg transition-all hover:bg-primary/90 hover:shadow-xl lg:py-3'>
+                                Beri Rating & Review
+                                <ArrowRight className='h-5 w-5' />
+                            </Button>
+                        </Link>
+                    </div>
                 )}
             </main>
         </PageShell>

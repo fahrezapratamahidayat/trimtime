@@ -13,13 +13,6 @@ import type { SVGProps } from "react";
 
 import { PageShell } from "@/components/layout/page-shell";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle
-} from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -53,128 +46,144 @@ const paymentMethods = [
 
 export default function PaymentPage({ params }: { params: { id: string } }) {
   return (
-    <PageShell background="hero" contentClassName="gap-8">
-      <header className="flex items-center justify-between rounded-3xl border border-border bg-card/90 px-6 py-5 shadow-sm">
-        <Link
-          href={`/booking/${params.id}`}
-          className="inline-flex items-center gap-1 rounded-full border border-border bg-background px-3 py-2 text-xs text-muted-foreground transition hover:bg-accent"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Kembali
-        </Link>
-        <span className="rounded-full border border-border bg-muted px-3 py-2 text-xs text-muted-foreground">
-          Pembayaran #{params.id}
-        </span>
-      </header>
-
-      <main className="flex flex-col gap-6">
-        <Card className="border-none bg-card text-card-foreground shadow-xl">
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-lg font-semibold">
-              Ringkasan booking
-            </CardTitle>
-            <CardDescription className="text-sm text-muted-foreground">
-              Pastikan detail berikut sudah sesuai.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="rounded-2xl border border-border p-4 text-sm text-muted-foreground">
-              <div className="flex items-center justify-between text-xs text-muted-foreground">
-                <span className="inline-flex items-center gap-2">
-                  <BadgeCheck className="h-3.5 w-3.5 text-primary" />
-                  Barbershop
-                </span>
-                <span className="font-semibold text-card-foreground">
-                  {paymentData.barbershop}
-                </span>
-              </div>
-              <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
-                <span className="inline-flex items-center gap-2">
-                  <ScissorsSmall />
-                  Layanan
-                </span>
-                <span>{paymentData.service}</span>
-              </div>
-              <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
-                <span className="inline-flex items-center gap-2">
-                  <CalendarClock className="h-3.5 w-3.5 text-primary" />
-                  Jadwal
-                </span>
-                <span>{paymentData.date}</span>
-              </div>
-              <div className="mt-3 flex items-center justify-between border-t border-border pt-3 text-sm font-semibold text-card-foreground">
-                <span>Total</span>
-                <span>Rp {paymentData.total.toLocaleString()}</span>
-              </div>
+    <PageShell background="soft" contentClassName="gap-0">
+      {/* Hero Header */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-primary/5 to-accent/10 px-5 py-6 lg:px-8">
+        <div className="absolute inset-0 bg-grid-pattern opacity-5" />
+        <div className="relative space-y-4">
+          <Link
+            href={`/booking/${params.id}`}
+            className="inline-flex w-fit items-center gap-2 rounded-lg border border-border/50 bg-background px-3 py-2 text-xs font-medium shadow-sm transition-colors hover:bg-accent"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" />
+            Kembali ke Booking
+          </Link>
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary">
+              <Wallet className="h-3.5 w-3.5" />
+              Pembayaran
             </div>
-          </CardContent>
-        </Card>
+            <h1 className="text-3xl font-bold tracking-tight lg:text-4xl">
+              Selesaikan Pembayaran
+            </h1>
+            <p className="text-sm text-muted-foreground lg:text-base">
+              Pilih metode pembayaran dan konfirmasi booking kamu
+            </p>
+          </div>
+        </div>
+      </section>
 
-        <Card className="border-none bg-card text-card-foreground shadow-xl">
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-lg font-semibold">
-              Metode pembayaran
-            </CardTitle>
-            <CardDescription className="text-sm text-muted-foreground">
-              Pilih metode yang kamu inginkan.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <RadioGroup defaultValue="qris" className="space-y-3">
-              {paymentMethods.map(({ value, label, description, icon: Icon }) => (
-                <label
-                  key={value}
-                  className="flex items-start gap-3 rounded-2xl border border-border p-4 text-sm text-muted-foreground transition hover:bg-muted"
-                >
-                  <RadioGroupItem value={value} id={value} className="mt-1" />
-                  <div className="flex w-full items-center justify-between">
-                    <div>
-                      <p className="flex items-center gap-2 text-sm font-semibold text-card-foreground">
-                        <Icon className="h-4 w-4 text-primary" />
-                        {label}
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        {description}
-                      </p>
-                    </div>
-                    {value === "qris" && (
-                      <span className="rounded-full bg-secondary px-3 py-1 text-[10px] font-semibold text-secondary-foreground">
-                        Direkomendasikan
-                      </span>
-                    )}
+      <main className="flex flex-col">
+        {/* Booking Summary */}
+        <section className="space-y-4 px-5 py-6 lg:px-8">
+          <div>
+            <h2 className="text-xl font-bold tracking-tight">Ringkasan Booking</h2>
+            <p className="mt-1 text-sm text-muted-foreground">Pastikan detail berikut sudah sesuai</p>
+          </div>
+          <div className="rounded-xl border border-border/50 bg-card p-5 shadow-sm">
+            <div className="space-y-4">
+              <div className="flex items-start justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+                    <BadgeCheck className="h-5 w-5 text-primary" />
                   </div>
-                </label>
-              ))}
-            </RadioGroup>
-          </CardContent>
-        </Card>
-
-        <Card className="border-none bg-card text-card-foreground shadow-xl">
-          <CardContent className="space-y-3 p-5 text-sm text-muted-foreground">
-            <div className="flex items-center justify-between">
-              <span>DP opsional</span>
-              <span className="font-semibold text-card-foreground">
-                Rp {paymentData.deposit.toLocaleString()}
-              </span>
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Barbershop</p>
+                    <p className="mt-0.5 text-base font-bold text-foreground">{paymentData.barbershop}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="h-px bg-border/50" />
+              <div className="grid gap-3">
+                <div className="flex items-center justify-between">
+                  <span className="inline-flex items-center gap-2 text-sm text-muted-foreground">
+                    <ScissorsSmall />
+                    Layanan
+                  </span>
+                  <span className="text-sm font-semibold text-foreground">{paymentData.service}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="inline-flex items-center gap-2 text-sm text-muted-foreground">
+                    <CalendarClock className="h-4 w-4 text-primary" />
+                    Jadwal
+                  </span>
+                  <span className="text-sm font-semibold text-foreground">{paymentData.date}</span>
+                </div>
+              </div>
+              <div className="flex items-center justify-between rounded-lg bg-primary/5 px-4 py-3 border-t-2 border-primary/20">
+                <span className="text-base font-bold text-foreground">Total Pembayaran</span>
+                <span className="text-xl font-bold text-primary">Rp {paymentData.total.toLocaleString()}</span>
+              </div>
             </div>
-            <div className="flex items-center gap-2 rounded-2xl border border-border p-4">
-              <Checkbox id="deposit" />
-              <Label
-                htmlFor="deposit"
-                className="flex-1 text-xs text-muted-foreground"
+          </div>
+        </section>
+
+        {/* Payment Methods */}
+        <section className="space-y-4 bg-muted/30 px-5 py-6 lg:px-8">
+          <div>
+            <h2 className="text-xl font-bold tracking-tight">Metode Pembayaran</h2>
+            <p className="mt-1 text-sm text-muted-foreground">Pilih metode yang kamu inginkan</p>
+          </div>
+          <RadioGroup defaultValue="qris" className="space-y-3">
+            {paymentMethods.map(({ value, label, description, icon: Icon }) => (
+              <label
+                key={value}
+                className="group relative flex cursor-pointer items-start gap-4 overflow-hidden rounded-xl border border-border/50 bg-card p-4 transition-all hover:shadow-sm has-[:checked]:border-primary has-[:checked]:bg-primary/5 has-[:checked]:shadow-sm"
               >
-                Bayar DP sekarang untuk memastikan slot barber tetap aman.
-              </Label>
-            </div>
-          </CardContent>
-        </Card>
+                <div className="absolute top-0 right-0 h-24 w-24 translate-x-8 -translate-y-8 rounded-full bg-primary/5 blur-2xl transition-transform group-hover:scale-150" />
+                <RadioGroupItem value={value} id={value} className="relative mt-1" />
+                <div className="relative flex flex-1 items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+                      <Icon className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-card-foreground">{label}</p>
+                      <p className="text-xs text-muted-foreground">{description}</p>
+                    </div>
+                  </div>
+                  {value === "qris" && (
+                    <span className="rounded-lg bg-primary px-2.5 py-1 text-[10px] font-bold text-primary-foreground shadow-sm">
+                      Rekomendasi
+                    </span>
+                  )}
+                </div>
+              </label>
+            ))}
+          </RadioGroup>
+        </section>
 
-        <Link href={`/status/${params.id}`}>
-          <Button className="w-full justify-center gap-2 rounded-2xl bg-primary text-primary-foreground shadow-xl transition hover:bg-primary/90">
-            Bayar sekarang
-            <ArrowRight className="h-4 w-4" />
-          </Button>
-        </Link>
+        {/* Deposit Option */}
+        <section className="space-y-4 px-5 py-6 lg:px-8">
+          <div>
+            <h2 className="text-xl font-bold tracking-tight">Down Payment (Opsional)</h2>
+            <p className="mt-1 text-sm text-muted-foreground">Amankan slot booking kamu dengan DP</p>
+          </div>
+          <div className="rounded-xl border border-border/50 bg-card p-5 shadow-sm">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium text-muted-foreground">Jumlah DP</span>
+                <span className="text-lg font-bold text-primary">Rp {paymentData.deposit.toLocaleString()}</span>
+              </div>
+              <div className="flex items-start gap-3 rounded-lg border border-border/50 bg-muted/20 p-4">
+                <Checkbox id="deposit" className="mt-0.5" />
+                <Label htmlFor="deposit" className="flex-1 cursor-pointer text-sm leading-relaxed text-muted-foreground">
+                  Bayar DP sekarang untuk memastikan slot barber tetap aman dan mendapatkan prioritas layanan.
+                </Label>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Button */}
+        <div className="sticky bottom-0 border-t border-border/50 bg-background/95 p-5 backdrop-blur-sm lg:px-8">
+          <Link href={`/status/${params.id}`}>
+            <Button className="w-full justify-center gap-2 rounded-lg bg-primary px-8 py-6 text-base font-semibold text-primary-foreground shadow-lg transition-all hover:bg-primary/90 hover:shadow-xl lg:py-3">
+              Bayar Sekarang
+              <ArrowRight className="h-5 w-5" />
+            </Button>
+          </Link>
+        </div>
       </main>
     </PageShell>
   );
