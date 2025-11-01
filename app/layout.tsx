@@ -1,6 +1,9 @@
+import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { BottomNav } from "@/components/bottom-nav";
+import { DesktopNav } from "@/components/desktop-nav";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,14 +23,26 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <div className="flex min-h-screen bg-muted/20 text-foreground">
+          <DesktopNav />
+          <div className="flex min-h-screen flex-1 flex-col">
+            <div className="relative flex flex-1 flex-col">
+              <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-0 pb-24 text-foreground lg:px-8 lg:pb-12">
+                <div className="flex-1 rounded-none bg-background shadow-none lg:rounded-3xl lg:border lg:border-border/60 lg:bg-background/90 lg:shadow-lg lg:backdrop-blur">
+                  {children}
+                </div>
+              </main>
+            </div>
+            <BottomNav className="lg:hidden" />
+          </div>
+        </div>
       </body>
     </html>
   );
