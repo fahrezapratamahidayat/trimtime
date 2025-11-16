@@ -33,7 +33,6 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import {
     Table,
@@ -356,6 +355,16 @@ export default function AdminAkunPage() {
                             >
                                 <RefreshCcw className='h-4 w-4' />
                                 Sinkron data owner
+                            </Button>
+                            <Button
+                                variant='outline'
+                                className='border-border/60 gap-2'
+                                asChild
+                            >
+                                <Link href='/admin/akun/freelancer'>
+                                    <Users2 className='h-4 w-4' />
+                                    Kurasi freelancer
+                                </Link>
                             </Button>
                         </div>
                     </div>

@@ -64,7 +64,7 @@ const quickActions = [
     {
         title: "Verifikasi owner baru",
         description: "Cek dokumen, NPWP, dan legalitas usaha.",
-        href: "/admin/akun",
+        href: "/admin/barbershops",
     },
     {
         title: "Audit transaksi digital",

@@ -17,8 +17,10 @@ import {
     Settings2,
     ShoppingBag,
     ShieldCheck,
+    Sparkles,
     TrendingUp,
     UserCog,
+    Users,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -56,10 +58,24 @@ const ownerNavItems = [
 
 const adminNavItems = [
     { href: "/admin/dashboard", label: "Dashboard", icon: PanelsTopLeft },
-    { href: "/admin/akun", label: "Manajemen Akun", icon: ShieldCheck },
-    { href: "/admin/transaksi", label: "Monitoring Transaksi", icon: BarChart3 },
+    {
+        href: "/admin/barbershops",
+        label: "Manajemen Barbershop",
+        icon: ShieldCheck,
+    },
+    { href: "/admin/freelancer", label: "Kurasi Freelancer", icon: Sparkles },
+    { href: "/admin/pelanggan", label: "Manajemen Pelanggan", icon: Users },
+    {
+        href: "/admin/transaksi",
+        label: "Monitoring Transaksi",
+        icon: BarChart3,
+    },
     { href: "/admin/cms", label: "CMS & Konten", icon: Megaphone },
-    { href: "/admin/analytics", label: "Analytics & Insight", icon: TrendingUp },
+    {
+        href: "/admin/analytics",
+        label: "Analytics & Insight",
+        icon: TrendingUp,
+    },
     { href: "/admin/iklan", label: "Iklan & Partner", icon: Building2 },
     { href: "/admin/support", label: "Customer Support", icon: Headphones },
     { href: "/admin/keamanan", label: "Audit & Keamanan", icon: ShieldCheck },
@@ -132,79 +148,83 @@ export function DesktopNav() {
                         !isFreelancerRoute &&
                         !isOwnerRoute &&
                         !isAdminRoute && (
-                        <>
-                            <p className='px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground'>
-                                Menu
-                            </p>
-                            {appNavItems.map(({ href, label, icon: Icon }) => {
-                                const isActive =
-                                    pathname === href ||
-                                    pathname?.startsWith(`${href}/`);
+                            <>
+                                <p className='px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground'>
+                                    Menu
+                                </p>
+                                {appNavItems.map(
+                                    ({ href, label, icon: Icon }) => {
+                                        const isActive =
+                                            pathname === href ||
+                                            pathname?.startsWith(`${href}/`);
 
-                                return (
-                                    <Link key={href} href={href}>
-                                        <span
-                                            className={cn(
-                                                "group relative flex w-full items-center gap-3 overflow-hidden rounded-lg px-4 py-3 text-sm font-semibold transition-all",
-                                                isActive
-                                                    ? "bg-primary text-primary-foreground shadow-md"
-                                                    : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
-                                            )}
-                                        >
-                                            {isActive && (
-                                                <span className='absolute inset-y-0 left-0 w-1 rounded-r-full bg-primary-foreground' />
-                                            )}
-                                            <Icon
-                                                className={cn(
-                                                    "h-5 w-5 transition-transform",
-                                                    isActive
-                                                        ? ""
-                                                        : "group-hover:scale-110"
-                                                )}
-                                            />
-                                            <span>{label}</span>
-                                        </span>
-                                    </Link>
-                                );
-                            })}
-                        </>
-                    )}
+                                        return (
+                                            <Link key={href} href={href}>
+                                                <span
+                                                    className={cn(
+                                                        "group relative flex w-full items-center gap-3 overflow-hidden rounded-lg px-4 py-3 text-sm font-semibold transition-all",
+                                                        isActive
+                                                            ? "bg-primary text-primary-foreground shadow-md"
+                                                            : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+                                                    )}
+                                                >
+                                                    {isActive && (
+                                                        <span className='absolute inset-y-0 left-0 w-1 rounded-r-full bg-primary-foreground' />
+                                                    )}
+                                                    <Icon
+                                                        className={cn(
+                                                            "h-5 w-5 transition-transform",
+                                                            isActive
+                                                                ? ""
+                                                                : "group-hover:scale-110"
+                                                        )}
+                                                    />
+                                                    <span>{label}</span>
+                                                </span>
+                                            </Link>
+                                        );
+                                    }
+                                )}
+                            </>
+                        )}
                     {isBarberRoute && (
                         <div className='mt-6 space-y-1.5'>
                             <p className='px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground'>
                                 Barber Panel
                             </p>
-                            {barberNavItems.map(({ href, label, icon: Icon }) => {
-                                const isActive =
-                                    pathname === href ||
-                                    pathname?.startsWith(`${href}/`);
+                            {barberNavItems.map(
+                                ({ href, label, icon: Icon }) => {
+                                    const isActive =
+                                        pathname === href ||
+                                        pathname?.startsWith(`${href}/`);
 
-                                return (
-                                    <Link key={href} href={href}>
-                                        <span
-                                            className={cn(
-                                                "group relative flex w-full items-center gap-3 overflow-hidden rounded-lg px-4 py-3 text-sm font-semibold transition-all",
-                                                isActive
-                                                    ? "bg-primary text-primary-foreground shadow-md"
-                                                    : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
-                                            )}
-                                        >
-                                            {isActive && (
-                                                <span className='absolute inset-y-0 left-0 w-1 rounded-r-full bg-primary-foreground' />
-                                            )}
-                                            <Icon
+                                    return (
+                                        <Link key={href} href={href}>
+                                            <span
                                                 className={cn(
-                                                    "h-5 w-5 transition-transform",
+                                                    "group relative flex w-full items-center gap-3 overflow-hidden rounded-lg px-4 py-3 text-sm font-semibold transition-all",
                                                     isActive
-                                                        ? ""
-                                                        : "group-hover:scale-110"
+                                                        ? "bg-primary text-primary-foreground shadow-md"
+                                                        : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
                                                 )}
-                                            />
-                                            <span>{label}</span>
-                                        </span>
-                                    </Link>
-                                );
-                            })}
+                                            >
+                                                {isActive && (
+                                                    <span className='absolute inset-y-0 left-0 w-1 rounded-r-full bg-primary-foreground' />
+                                                )}
+                                                <Icon
+                                                    className={cn(
+                                                        "h-5 w-5 transition-transform",
+                                                        isActive
+                                                            ? ""
+                                                            : "group-hover:scale-110"
+                                                    )}
+                                                />
+                                                <span>{label}</span>
+                                            </span>
+                                        </Link>
+                                    );
+                                }
+                            )}
                         </div>
                     )}
                     {isFreelancerRoute && (
@@ -212,37 +232,39 @@ export function DesktopNav() {
                             <p className='px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground'>
                                 Freelancer Panel
                             </p>
-                            {freelancerNavItems.map(({ href, label, icon: Icon }) => {
-                                const isActive =
-                                    pathname === href ||
-                                    pathname?.startsWith(`${href}/`);
+                            {freelancerNavItems.map(
+                                ({ href, label, icon: Icon }) => {
+                                    const isActive =
+                                        pathname === href ||
+                                        pathname?.startsWith(`${href}/`);
 
-                                return (
-                                    <Link key={href} href={href}>
-                                        <span
-                                            className={cn(
-                                                "group relative flex w-full items-center gap-3 overflow-hidden rounded-lg px-4 py-3 text-sm font-semibold transition-all",
-                                                isActive
-                                                    ? "bg-primary text-primary-foreground shadow-md"
-                                                    : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
-                                            )}
-                                        >
-                                            {isActive && (
-                                                <span className='absolute inset-y-0 left-0 w-1 rounded-r-full bg-primary-foreground' />
-                                            )}
-                                            <Icon
+                                    return (
+                                        <Link key={href} href={href}>
+                                            <span
                                                 className={cn(
-                                                    "h-5 w-5 transition-transform",
+                                                    "group relative flex w-full items-center gap-3 overflow-hidden rounded-lg px-4 py-3 text-sm font-semibold transition-all",
                                                     isActive
-                                                        ? ""
-                                                        : "group-hover:scale-110"
+                                                        ? "bg-primary text-primary-foreground shadow-md"
+                                                        : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
                                                 )}
-                                            />
-                                            <span>{label}</span>
-                                        </span>
-                                    </Link>
-                                );
-                            })}
+                                            >
+                                                {isActive && (
+                                                    <span className='absolute inset-y-0 left-0 w-1 rounded-r-full bg-primary-foreground' />
+                                                )}
+                                                <Icon
+                                                    className={cn(
+                                                        "h-5 w-5 transition-transform",
+                                                        isActive
+                                                            ? ""
+                                                            : "group-hover:scale-110"
+                                                    )}
+                                                />
+                                                <span>{label}</span>
+                                            </span>
+                                        </Link>
+                                    );
+                                }
+                            )}
                         </div>
                     )}
                     {isOwnerRoute && (
@@ -250,37 +272,39 @@ export function DesktopNav() {
                             <p className='px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground'>
                                 Owner Panel
                             </p>
-                            {ownerNavItems.map(({ href, label, icon: Icon }) => {
-                                const isActive =
-                                    pathname === href ||
-                                    pathname?.startsWith(`${href}/`);
+                            {ownerNavItems.map(
+                                ({ href, label, icon: Icon }) => {
+                                    const isActive =
+                                        pathname === href ||
+                                        pathname?.startsWith(`${href}/`);
 
-                                return (
-                                    <Link key={href} href={href}>
-                                        <span
-                                            className={cn(
-                                                "group relative flex w-full items-center gap-3 overflow-hidden rounded-lg px-4 py-3 text-sm font-semibold transition-all",
-                                                isActive
-                                                    ? "bg-primary text-primary-foreground shadow-md"
-                                                    : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
-                                            )}
-                                        >
-                                            {isActive && (
-                                                <span className='absolute inset-y-0 left-0 w-1 rounded-r-full bg-primary-foreground' />
-                                            )}
-                                            <Icon
+                                    return (
+                                        <Link key={href} href={href}>
+                                            <span
                                                 className={cn(
-                                                    "h-5 w-5 transition-transform",
+                                                    "group relative flex w-full items-center gap-3 overflow-hidden rounded-lg px-4 py-3 text-sm font-semibold transition-all",
                                                     isActive
-                                                        ? ""
-                                                        : "group-hover:scale-110"
+                                                        ? "bg-primary text-primary-foreground shadow-md"
+                                                        : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
                                                 )}
-                                            />
-                                            <span>{label}</span>
-                                        </span>
-                                    </Link>
-                                );
-                            })}
+                                            >
+                                                {isActive && (
+                                                    <span className='absolute inset-y-0 left-0 w-1 rounded-r-full bg-primary-foreground' />
+                                                )}
+                                                <Icon
+                                                    className={cn(
+                                                        "h-5 w-5 transition-transform",
+                                                        isActive
+                                                            ? ""
+                                                            : "group-hover:scale-110"
+                                                    )}
+                                                />
+                                                <span>{label}</span>
+                                            </span>
+                                        </Link>
+                                    );
+                                }
+                            )}
                         </div>
                     )}
                     {isAdminRoute && (
@@ -288,42 +312,51 @@ export function DesktopNav() {
                             <p className='px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground'>
                                 Admin Panel
                             </p>
-                            {adminNavItems.map(({ href, label, icon: Icon }) => {
-                                const isActive =
-                                    pathname === href ||
-                                    pathname?.startsWith(`${href}/`);
+                            {adminNavItems.map(
+                                ({ href, label, icon: Icon }) => {
+                                    const isActive =
+                                        pathname === href ||
+                                        pathname?.startsWith(`${href}/`);
 
-                                return (
-                                    <Link key={href} href={href}>
-                                        <span
-                                            className={cn(
-                                                "group relative flex w-full items-center gap-3 overflow-hidden rounded-lg px-4 py-3 text-sm font-semibold transition-all",
-                                                isActive
-                                                    ? "bg-primary text-primary-foreground shadow-md"
-                                                    : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
-                                            )}
-                                        >
-                                            {isActive && (
-                                                <span className='absolute inset-y-0 left-0 w-1 rounded-r-full bg-primary-foreground' />
-                                            )}
-                                            <Icon
+                                    return (
+                                        <Link key={href} href={href}>
+                                            <span
                                                 className={cn(
-                                                    "h-5 w-5 transition-transform",
+                                                    "group relative flex w-full items-center gap-3 overflow-hidden rounded-lg px-4 py-3 text-sm font-semibold transition-all",
                                                     isActive
-                                                        ? ""
-                                                        : "group-hover:scale-110"
+                                                        ? "bg-primary text-primary-foreground shadow-md"
+                                                        : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
                                                 )}
-                                            />
-                                            <span>{label}</span>
-                                        </span>
-                                    </Link>
-                                );
-                            })}
+                                            >
+                                                {isActive && (
+                                                    <span className='absolute inset-y-0 left-0 w-1 rounded-r-full bg-primary-foreground' />
+                                                )}
+                                                <Icon
+                                                    className={cn(
+                                                        "h-5 w-5 transition-transform",
+                                                        isActive
+                                                            ? ""
+                                                            : "group-hover:scale-110"
+                                                    )}
+                                                />
+                                                <span>{label}</span>
+                                            </span>
+                                        </Link>
+                                    );
+                                }
+                            )}
                         </div>
                     )}
                 </nav>
-                <Button variant='outline' className='mt-2 w-full border-border/60 text-sm font-semibold' asChild>
-                    <Link href='/login' className='flex items-center justify-center gap-2'>
+                <Button
+                    variant='outline'
+                    className='mt-2 w-full border-border/60 text-sm font-semibold'
+                    asChild
+                >
+                    <Link
+                        href='/login'
+                        className='flex items-center justify-center gap-2'
+                    >
                         <LogOut className='h-4 w-4' />
                         Keluar
                     </Link>

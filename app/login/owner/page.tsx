@@ -5,81 +5,69 @@ import { Briefcase, Crown, ShieldCheck } from "lucide-react";
 import { RoleLoginTemplate } from "../_components/role-login-template";
 
 const loginFields = [
-  {
-    id: "email",
-    label: "Email bisnis",
-    type: "email",
-    placeholder: "owner@barbershop.com",
-    autoComplete: "email",
-    required: true
-  },
-  {
-    id: "password",
-    label: "Kata sandi",
-    type: "password",
-    placeholder: "Masukkan kata sandi",
-    autoComplete: "current-password",
-    required: true
-  },
-  {
-    id: "outlet-code",
-    label: "Kode outlet",
-    placeholder: "Contoh: TRIM-001",
-    description: "Kode ini akan dikirimkan setelah barbershop kamu terverifikasi.",
-    required: false
-  }
+    {
+        id: "email",
+        label: "Email bisnis",
+        type: "email",
+        placeholder: "owner@barbershop.com",
+        autoComplete: "email",
+        required: true,
+    },
+    {
+        id: "password",
+        label: "Kata sandi",
+        type: "password",
+        placeholder: "Masukkan kata sandi",
+        autoComplete: "current-password",
+        required: true,
+    },
+    {
+        id: "outlet-code",
+        label: "Kode outlet",
+        placeholder: "Contoh: TRIM-001",
+        description:
+            "Kode ini akan dikirimkan setelah barbershop kamu terverifikasi.",
+        required: false,
+    },
 ];
 
 const secondaryActions = [
-  {
-    href: "/register/owner",
-    label: "Daftar sebagai owner",
-    description: "Ajukan barbershop baru, proses verifikasi estimasi 1×24 jam.",
-    icon: Briefcase
-  },
-  {
-    href: "/intro",
-    label: "Pelajari ekosistem TrimTime",
-    description: "Lihat alur lengkap sebelum mendaftar.",
-    icon: ShieldCheck,
-    variant: "ghost" as const
-  }
+    {
+        href: "/register/owner",
+        label: "Daftar sebagai owner",
+        description:
+            "Ajukan barbershop baru, proses verifikasi estimasi 1×24 jam.",
+        icon: Briefcase,
+    },
+    {
+        href: "/intro",
+        label: "Pelajari ekosistem TrimTime",
+        description: "Lihat alur lengkap sebelum mendaftar.",
+        icon: ShieldCheck,
+        variant: "ghost" as const,
+    },
 ];
 
 const mockCredentials = {
-  email: "owner@trimtime.id",
-  password: "owner123",
-  "outlet-code": "TRIM-001"
+    email: "owner@trimtime.id",
+    password: "owner123",
+    "outlet-code": "TRIM-001",
 };
 
 export default function OwnerLoginPage() {
-  return (
-    <RoleLoginTemplate
-      icon={Crown}
-      badge="Kelola Outlet"
-      heading="Masuk sebagai Owner Barbershop"
-      description="Kelola jadwal, tim barber, laporan outlet, dan promo marketplace dari satu dashboard."
-      accessNotes={["Daftar mandiri", "Menunggu persetujuan admin"]}
-      loginFields={loginFields}
-      submitLabel="Masuk dashboard owner"
-      secondaryActions={secondaryActions}
-      mockCredentials={mockCredentials}
-      successRedirect="/owner/dashboard"
-      errorMessage="Kredensial owner tidak valid. Coba cek email, sandi, atau kode outlet."
-      footerNote={
-        <div className="space-y-1 text-muted-foreground">
-          <p>
-            Demo akun: <span className="font-semibold text-foreground">owner@trimtime.id / owner123</span> (Kode outlet: TRIM-001)
-          </p>
-          <p>
-            Butuh bantuan verifikasi? Hubungi tim TrimTime melalui email{" "}
-            <a className="text-primary" href="mailto:support@trimtime.id">
-              support@trimtime.id
-            </a>
-            .
-          </p>
-        </div>
-      }
-    />
-  );
+    return (
+        <RoleLoginTemplate
+            icon={Crown}
+            badge='Kelola Outlet'
+            heading='Masuk sebagai Owner Barbershop'
+            description='Kelola jadwal, tim barber, laporan outlet, dan promo marketplace dari satu dashboard.'
+            accessNotes={["Daftar mandiri", "Menunggu persetujuan admin"]}
+            loginFields={loginFields}
+            submitLabel='Masuk dashboard owner'
+            secondaryActions={secondaryActions}
+            mockCredentials={mockCredentials}
+            successRedirect='/owner/dashboard'
+            errorMessage='Kredensial owner tidak valid. Coba cek email, sandi, atau kode outlet.'
+        />
+    );
 }
